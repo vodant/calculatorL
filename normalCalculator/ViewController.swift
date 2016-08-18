@@ -29,10 +29,11 @@ class ViewController: UIViewController{
         
         let digit = sender.currentTitle!
         
-        if self.display.text! == "0" {
-            display.text = digit
-        } else {
+        if isUserTypingNumber && self.display.text! != "0" {
             display.text = display.text! + digit
+        } else {
+            display.text = digit
+            isUserTypingNumber = true
         }
     }
     
@@ -47,6 +48,8 @@ class ViewController: UIViewController{
             return
         }
         
+        isUserTypingNumber = true
+
         self.display.text? += "."
     }
    
@@ -61,7 +64,7 @@ class ViewController: UIViewController{
         }
         
         self.temp.first = Double(self.display.text!)
-        self.display.text = "0"
+        isUserTypingNumber = false
         
         self.numberOperatorLabel.text = sender.currentTitle!
     }
